@@ -10,8 +10,8 @@ Markers used: `[pause Ns]`, `[breath]` only. ☁️ = needs an AWS account for t
 
 | Lecture | File | Min | Words | Lab path |
 |---|---|---|---|---|
-| 01.1 Why Terragrunt | [01.1-why-terragrunt.md](01.1-why-terragrunt.md) | 3 | 482 | `labs/01-setup/01.1-why/` (filled) |
-| 01.2 Lab repo tour | [01.2-repo-tour.md](01.2-repo-tour.md) | 3 | 380 | `labs/01-setup/01.2-repo-tour/` (filled) · repo root `README.md`, `.mise.toml` |
+| 01.1 Why Terragrunt | [01.1-why-terragrunt.md](01.1-why-terragrunt.md) | 3 | 536 | `labs/01-setup/01.1-why/` — walks start/{dev,staging,prod} drift, solution/unit, `./check.sh` → `PASS  01.1 why Terragrunt` |
+| 01.2 Lab repo tour | [01.2-repo-tour.md](01.2-repo-tour.md) | 3 | 440 | `labs/01-setup/01.2-repo-tour/` — start/checklist.md, `.mise.toml` pins, cloud 05.2/09.2/09.3/10.2, `./check.sh` → `PASS  01.2 repo tour` |
 
 ## Section 02 · Getting started (15 min)
 
@@ -117,7 +117,7 @@ Markers used: `[pause Ns]`, `[breath]` only. ☁️ = needs an AWS account for t
 
 ## Notes / gaps
 
-- Section 01 labs are stubs (README TODO). 01.1 and 01.2 are conceptual and use the root README.
+- Section 01 labs are filled (commit 9822da6); 01.1 and 01.2 narration walks those labs. The per-lecture files and this INDEX are source of truth for 01.1/01.2 (COURSE_SCRIPTS.md also refreshed).
 - Lecture numbers follow the repo (10.1–10.4, 11.1–11.2, 12.1–12.2, 13.1–13.2) where they differ from the locked curriculum.
 - Optional 'break it' demos not in the READMEs. Verify them while recording: 03.5 (a `colour` input), 08.2 (an extra space to trip the fmt gate), 07.5 (an example git URL with `?ref`).
 - ☁️ lectures (05.2, 09.2, 09.3, 10.2, plus the role step in 10.4) were scripted against the offline checkers. The AWS steps still need a real run to capture on screen.

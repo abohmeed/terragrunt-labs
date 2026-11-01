@@ -8,120 +8,124 @@ Concatenated from the per-lecture files in INDEX.md order.
 # 01.1 Why Terragrunt
 
 - **Estimated time:** 3 min
-- **Lab path:** `labs/01-setup/01.1-why/` (README only; no lab files yet)
+- **Lab path:** `labs/01-setup/01.1-why/` — `start/{dev,staging,prod}/` (copied roots), `start/check.sh`; `solution/unit/terragrunt.hcl`, `solution/modules/record/`, `solution/NOTES.md`
 - **Section:** 01 · Welcome & setup
 
 ---
 
 Welcome to Terragrunt for DevOps. [pause 1s]
 
-Before we install anything, I want to show you the exact problem Terragrunt solves. Not in general terms. The specific point where plain Terraform starts to hurt.
+Before we install anything, I want to show you the exact point where plain Terraform starts to hurt. And we will do it with real files. Open the lab: `labs/01-setup/01.1-why`.
 
 [breath]
 
-Picture one Terraform root module. A VPC, a database, an app. You deploy it to dev. It works.
+In this lab you only read files. Nothing is installed, and nothing is applied.
 
-Now you need staging and prod. The usual move is to copy the folder. Three copies of the same root module, three `backend` blocks, three provider blocks, three `terraform.tfvars` files.
+(*Screen: `start/` — dev, staging, prod, check.sh.*)
 
-(*Diagram: three folders — dev, staging, prod — each holding the same main.tf, backend.tf, provider.tf.*)
+Inside `start` there are three folders: `dev`, `staging`, and `prod`. Each one is a full Terraform root with the same four files: `main.tf`, `backend.tf`, `provider.tf`, and `terraform.tfvars`.
 
-[pause 1s]
+Diff `main.tf` across the three. It is the same file, copied. [pause 1s]
 
-Here is what breaks. The backend block cannot use variables, so you hard-code the bucket and the key in every copy. Change the provider version in one folder and forget the other two, and your environments drift. Add a fourth region, and you copy everything again.
-
-[breath]
-
-The second problem is size. If everything lives in one root module, every plan touches everything. One state file, one lock, one blast radius. So teams split the code into smaller root modules: network, database, app. Now each piece has its own state. Good. But now the app needs the VPC ID from the network state, and something has to run them in the right order.
-
-[pause 1s]
-
-Terraform alone does not give you that orchestration. Terragrunt does.
-
-Terragrunt is a thin wrapper. It does not replace Terraform. It calls Terraform, or OpenTofu, for you. Before it does, it does three things.
-
-One. It keeps configuration in one place. A root file holds the backend and the provider, and every unit includes it. You write the backend once.
-
-Two. It copies your module into a working directory and writes generated files into it. So the module stays clean, and the environment-specific parts come from Terragrunt.
-
-Three. It knows how units depend on each other. It builds a graph, and runs plan or apply across many units in the right order.
+Now open each `backend.tf`. This lab uses the local backend, so it stays on your laptop. But look at the path: `dev/terraform.tfstate`, then `staging`, then `prod`. Typed by hand, every time. The backend block cannot take a variable. On S3 it is the same story: the bucket and the key are literals in every copy.
 
 [breath]
 
-In Terragrunt 1.x, the word for one deployable piece is a **unit**. A unit is a directory with a `terragrunt.hcl` file. It points at a module, it sets inputs, and it gets its own state.
+Now `provider.tf`. This is where the copies drifted. `dev` asks for Terraform 1.17 and `random` 3.6. `staging` still says Terraform 1.9 and `random` 3.5. `prod` is stuck on 1.6 and 3.4. Somebody updated one folder and forgot the other two. A fourth environment would mean a fourth copy of every file.
 
-A group of units is a **stack**. In 1.x you can describe a stack in one file, `terragrunt.stack.hcl`, and Terragrunt generates the units for you. We will build up to that in section seven.
+(*Screen: side-by-side provider.tf, versions highlighted.*)
 
-[pause 1s]
-
-So the course goes in that order. First a single unit. Then shared configuration with `include`. Then remote state, dependencies, and stacks. Then hooks, secrets, and a CI/CD pipeline that plans on pull requests and applies on merge.
-
-Everything runs on Terragrunt 1.2 and Terraform 1.17. Most labs run fully offline on your laptop. The few that need AWS are marked with a cloud icon.
+`terraform.tfvars` is the only place the prefix changes. The module code does not change, because it was copied instead of shared.
 
 [pause 1s]
 
-In the next lecture, we walk through the lab repository so you know where everything lives.
+There is a second problem under the copies. One root is one state file and one lock, so every plan touches everything. Split it into smaller pieces and each gets its own state. But then something has to run them in the right order. Terraform alone does not do that. Terragrunt does.
 
+[breath]
+
+Now open the `solution` folder. Two things.
+
+`modules/record` holds the module, once. And `unit/terragrunt.hcl` is a Terragrunt **unit**: a directory with a `terragrunt.hcl` file.
+
+(*Screen: `solution/unit/terragrunt.hcl`.*)
+
+`terraform.source` points at `../modules/record`. The `inputs` block replaces the copied `terraform.tfvars`. And `terraform_binary = "terraform"` keeps us on Terraform even when OpenTofu is installed. You will see that line in almost every lab. The next environment is just another small `terragrunt.hcl`, not another copy of the module.
+
+A group of units is a **stack**. In Terragrunt 1.x you describe it in `terragrunt.stack.hcl`. `solution/NOTES.md` shows a short preview. We build it for real in section seven.
+
+[pause 1s]
+
+Now run the checker. From `start`, type `./check.sh`. It compares the three copies on disk. It does not call Terraform, Terragrunt, or AWS. The last line should read `PASS  01.1 why Terragrunt`.
+
+If you want, run the same script from `solution`. It checks the unit sketch and ends with `PASS  01.1 solution`. [pause 1s]
+
+And leave the drift in place. The copies are the demonstration. Do not run `terraform init` here.
+
+[breath]
+
+The course follows that path. A single unit, shared config with `include`, remote state, dependencies, stacks, then hooks, secrets, and CI/CD. All on Terragrunt 1.2 and Terraform 1.17, mostly offline.
+
+In the next lecture, we tour the lab repository so you know where everything lives.
 
 ---
 
 # 01.2 Lab repo tour
 
 - **Estimated time:** 3 min
-- **Lab path:** `labs/01-setup/01.2-repo-tour/` (README only) · repo root `README.md`, `.mise.toml`
+- **Lab path:** `labs/01-setup/01.2-repo-tour/` — `start/checklist.md`, `start/check.sh`; `solution/NOTES.md` (filled checklist) · repo root `.mise.toml`
 - **Section:** 01 · Welcome & setup
 
 ---
 
-All the labs for this course live in one public repository: `abohmeed/terragrunt-labs` on GitHub.
+All the labs live in one public repository: `abohmeed/terragrunt-labs` on GitHub. Clone it once. Every lecture after this one works inside it.
 
 (*Screen: GitHub repo root.*)
 
-Clone it once. Every lecture after this one works inside it.
-
 [pause 1s]
 
-Open the `labs` folder. There is one folder per section, numbered the same way as the course. Zero-two install. Zero-three core HCL. All the way to thirteen, the capstone.
-
-Inside each section there is one folder per lecture. Open one, for example `03.2-locals-inputs`.
-
-(*Screen: `labs/03-core-hcl/03.2-locals-inputs/` — README.md, start/, solution/.*)
+Open this lecture's folder: `labs/01-setup/01.2-repo-tour`. Inside `start` you will find `checklist.md` and `check.sh`. As we walk the repo, fill in the blanks in the checklist.
 
 [breath]
 
-Every lecture folder has the same three things.
+First, the layout. From this folder, run `ls ../..`. You see one folder per section, numbered like the course: `01-setup` all the way to `13-capstone`. Write the first and the last in your checklist.
 
-A `README.md`. That is the goal of the lab and the steps.
+(*Screen: `ls ../..` output.*)
 
-A `start` folder. That is where you work. It has TODOs in it, and in many labs it is deliberately broken so you can see the error first.
+Now open a sample lecture: `../../03-core-hcl/03.2-locals-inputs`. Every lecture folder has the same three entries.
 
-And a `solution` folder. That is the finished lab. Open it when you are stuck, or when you want to compare.
+A `README.md`, with the goal and the steps.
+
+A `start` folder. That is where you work. Later lectures leave blanks here for you to fill.
+
+And a `solution` folder, the finished lab. Open it when you are stuck, or to compare.
 
 [pause 1s]
 
-Most labs also have a `check.sh` script. It deletes the cache, runs the lab cold, and prints a line that starts with `PASS`. If you see `PASS`, your lab matches what the lecture expects.
+Most lectures also have `start/check.sh`. It clears the cache when there is one, runs the lab cold, and prints a line that starts with `PASS`. The copy in `solution` is the same script.
 
 [breath]
 
-Now the version pins. Open `.mise.toml` at the repo root.
+Next, the pins. Open `../../../.mise.toml` at the repo root.
 
 (*Screen: `.mise.toml`.*)
 
-Terragrunt is pinned to the 1.2 line. Terraform to 1.17. OpenTofu to 1.13, but we only use it in the add-on section twelve. tflint, sops, and age are pinned to exact releases, because lectures eight-two and nine-one run those binaries directly.
+Terragrunt is `prefix:1.2`. Terraform `prefix:1.17`. OpenTofu `prefix:1.13`, used only in section twelve. A `prefix` pin tracks the newest patch on that line. tflint is pinned to exactly 0.65.0 for lecture eight-two. sops 3.13.3 and age 1.3.2 for lecture nine-one, because those lectures run the binaries directly.
 
 [pause 1s]
 
-One detail you will see in almost every lab: `terraform_binary = "terraform"`. Terragrunt 1.2 prefers OpenTofu when it finds `tofu` on your path. Since `mise install` puts `tofu` there, every lab sets the binary explicitly, so the engine stays on Terraform until section twelve.
+One line for the engine section of your checklist: Terragrunt 1.2 runs OpenTofu when it finds `tofu` on your path, and `mise install` puts it there. So labs set `terraform_binary = "terraform"`, and stay on Terraform until section twelve.
 
 [breath]
 
-Last thing. Most labs are offline. They use the `local`, `random`, and `null` providers and a local state backend. You do not need a cloud account for them.
+Last, the cloud lectures. Most labs use the `local`, `random`, and `null` providers and a local backend. No cloud account needed.
 
-Four lectures need AWS: five-two, the S3 backend bootstrap. Nine-two and nine-three, assume role and multi-account. And ten-two, GitHub Actions with OIDC. Those are marked with a cloud icon. Their checkers only validate the rendered configuration and never call AWS, so you can still follow along without an account.
+Four lectures need AWS. Five-two, the S3 backend bootstrap with `use_lockfile` locking. Nine-two, assuming an IAM role from a unit. Nine-three, the same unit in two accounts. And ten-two, GitHub Actions with OIDC. Their titles carry a cloud icon. Open `05.2-backend-bootstrap/README.md` to see one, then come back without running it. And their checkers still never call AWS.
 
 [pause 1s]
 
-That is the repo. Next, we install the pinned tools and confirm they answer.
+Now, from `start`, run `./check.sh`. It reads the repository on disk. It does not read your checklist answers. The last line should be `PASS  01.2 repo tour`. Compare your answers with `solution/NOTES.md`.
 
+That is the repo. Next, we install the pinned tools and confirm they answer.
 
 ---
 
