@@ -1,0 +1,5 @@
+name: plan
+
+# TODO: run on pull_request, call ./scripts/plan.sh, and leave the AWS role step commented.
+on:
+  workflow_dispatch:

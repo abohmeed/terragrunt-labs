@@ -1,0 +1,28 @@
+name: plan
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+concurrency:
+  group: plan-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      # Cloud step. Stubbed. ./check.sh does not call AWS.
+      # - name: Assume the plan role
+      #   uses: aws-actions/configure-aws-credentials@v6.3.0
+      #   with:
+      #     role-to-assume: ${{ vars.AWS_PLAN_ROLE_ARN }}
+      #     aws-region: us-east-1
+      #     role-session-name: terragrunt-plan
+      - name: Plan
+        run: ./scripts/plan.sh

@@ -2,7 +2,7 @@
 
 Hands-on labs for **[Terragrunt for DevOps: Scale Your Terraform Workflows](https://www.udemy.com/course/terragrunt-for-devops-scale-your-terraform-workflows/)** by Ahmed Elfakharany.
 
-This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 10 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
+This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 13 are working labs. Section 01 is still a stub: a short `README.md`, plus empty `start/` and `solution/` directories.
 
 ## Version pins
 
@@ -27,7 +27,7 @@ sops --version
 age --version
 ```
 
-OpenTofu is installed with the others so section 12 is ready. Lectures before that section use Terraform.
+OpenTofu is installed with the others so section 12 is ready. Lectures before that section set `terraform_binary = "terraform"`. Section 12 sets it to `tofu`.
 
 ## How `start/` and `solution/` work
 
@@ -153,21 +153,21 @@ Design the pipeline, then OIDC, plan on pull request, and apply on merge. The la
 
 ### 11 · Migrate and troubleshoot
 
-Move a 0.x configuration onto 1.x, then read the failures you will actually hit.
+Move a 0.x queue onto `run --all`, the renamed flags, and stacks in place of `_envcommon`. Then read an ambiguous unit/stack directory with `--log-level debug` and `render`.
 
 - [11.1 Migrate to 1.x](labs/11-migrate-troubleshoot/11.1-migrate-to-1x/)
 - [11.2 Troubleshooting](labs/11-migrate-troubleshoot/11.2-troubleshooting/)
 
 ### 12 · Add-on: OpenTofu
 
-Point Terragrunt at the pinned OpenTofu release.
+Point Terragrunt at OpenTofu 1.13.x with `terraform_binary`, `--tf-path`, and `TG_TF_PATH`. Then compare `.tofu` files, the lock-file registry, and state encryption.
 
 - [12.1 Switch to OpenTofu](labs/12-addon-opentofu/12.1-switch-to-tofu/)
 - [12.2 OpenTofu specifics](labs/12-addon-opentofu/12.2-tofu-specifics/)
 
 ### 13 · Capstone
 
-Combine the pieces, then pick what to practice next.
+A dev and prod stack from the local catalog, planned and applied by a CI-shaped script. The AWS role step stays commented. The last lecture is a reading list.
 
 - [13.1 Capstone](labs/13-capstone/13.1-capstone/)
 - [13.2 Next](labs/13-capstone/13.2-next/)

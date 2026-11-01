@@ -1,0 +1,5 @@
+name: apply
+
+# TODO: run on a push to main, call ./scripts/apply.sh, and leave the AWS role step commented.
+on:
+  workflow_dispatch:
