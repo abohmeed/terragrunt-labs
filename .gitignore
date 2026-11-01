@@ -1,0 +1,56 @@
+# Terragrunt working directories and generated stacks
+.terragrunt-cache/
+**/.terragrunt-cache/
+.terragrunt-stack/
+**/.terragrunt-stack/
+terragrunt-debug.tfvars
+
+# Terraform / OpenTofu working directories and local state
+.terraform/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*tfplan*
+crash.log
+crash.*.log
+.terraform.tfstate.lock.info
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# CLI config (can hold credentials)
+.terraformrc
+terraform.rc
+.tfrc
+
+# Local-only variable files. Example *.tfvars that ship with a lab stay tracked.
+*.auto.tfvars
+*.auto.tfvars.json
+secrets.tfvars
+secrets.tfvars.json
+secret.tfvars
+secret.tfvars.json
+
+# Private keys and decrypted secret material.
+# Encrypted SOPS files (for example secrets.enc.yaml) stay in git.
+*.pem
+*.agekey
+age.key
+.age-key
+id_rsa
+id_rsa.*
+*.dec.yaml
+*.dec.yml
+*.dec.json
+.env
+.env.*
+!.env.example
+
+# mise local overrides
+mise.local.toml
+.mise.local.toml
+
+# OS junk
+.DS_Store

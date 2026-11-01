@@ -1,0 +1,16 @@
+# Course pins, locked 2026-11-01.
+# A prefix: request installs the newest patch on that minor line:
+#   Terragrunt ~> 1.2
+#   Terraform  1.17.x
+#   OpenTofu   1.13.x (add-on section; installed so those labs are ready)
+
+[tools]
+terragrunt = "prefix:1.2"
+terraform = "prefix:1.17"
+opentofu = "prefix:1.13"
+
+# Placeholders for the lint-hook (08.2) and SOPS (09.1) lectures.
+# Uncomment and replace "latest" with a pinned release when those labs are written.
+# tflint = "latest"
+# sops = "latest"
+# age = "latest"
