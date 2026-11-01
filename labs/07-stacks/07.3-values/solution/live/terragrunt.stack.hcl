@@ -1,0 +1,45 @@
+# plain keeps the unit's terragrunt.values.hcl.
+# network and service replace it. service also takes the network name.
+
+unit "plain" {
+  source = "../units/record"
+  path   = "plain"
+}
+
+unit "network" {
+  source = "../units/record"
+  path   = "network"
+
+  values = {
+    environment = "dev"
+    prefix      = "net"
+    note        = "network unit"
+  }
+}
+
+unit "service" {
+  source = "../units/record"
+  path   = "service"
+
+  values = {
+    environment = "dev"
+    prefix      = "svc"
+    note        = "replaced by the network output"
+  }
+
+  autoinclude {
+    dependency "network" {
+      config_path = unit.network.path
+
+      mock_outputs = {
+        name = "mock-network-name"
+      }
+
+      mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+    }
+
+    inputs = {
+      note = dependency.network.outputs.name
+    }
+  }
+}
