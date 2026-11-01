@@ -9,8 +9,8 @@ terragrunt = "prefix:1.2"
 terraform = "prefix:1.17"
 opentofu = "prefix:1.13"
 
-# Lecture 08.2 pins tflint. The checker installs this release when the
-# binary is missing. sops and age stay commented until lecture 09.1.
+# Lecture 08.2 pins tflint. Lecture 09.1 pins sops and age. The checkers
+# install these releases when the binary is missing.
 tflint = "0.65.0"
-# sops = "latest"
-# age = "latest"
+sops = "3.13.3"
+age = "1.3.2"

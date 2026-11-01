@@ -2,7 +2,7 @@
 
 Hands-on labs for **[Terragrunt for DevOps: Scale Your Terraform Workflows](https://www.udemy.com/course/terragrunt-for-devops-scale-your-terraform-workflows/)** by Ahmed Elfakharany.
 
-This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 08 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
+This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 09 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
 
 ## Version pins
 
@@ -12,9 +12,10 @@ This repository is the Terragrunt 1.x rebuild of the course. The folder tree mat
 | Terraform | 1.17.x | Default engine |
 | OpenTofu | 1.13.x | Add-on section, `labs/12-addon-opentofu` |
 | tflint | 0.65.0 | Lecture 08.2. Exact release in [`.mise.toml`](.mise.toml) |
-| sops, age | Placeholders | Commented in [`.mise.toml`](.mise.toml) until the secrets lab pins a release |
+| sops | 3.13.3 | Lecture 09.1. Exact release in [`.mise.toml`](.mise.toml) |
+| age | 1.3.2 | Lecture 09.1. Exact release in [`.mise.toml`](.mise.toml) |
 
-[mise](https://mise.jdx.dev/) installs the pinned tools. A `prefix:` request tracks the newest patch on that minor line. tflint is an exact release because lecture 08.2 runs that binary from a hook.
+[mise](https://mise.jdx.dev/) installs the pinned tools. A `prefix:` request tracks the newest patch on that minor line. tflint, sops, and age are exact releases because lectures 08.2 and 09.1 run those binaries.
 
 ```bash
 mise install
@@ -22,6 +23,8 @@ terragrunt --version
 terraform --version
 tofu --version
 tflint --version
+sops --version
+age --version
 ```
 
 OpenTofu is installed with the others so section 12 is ready. Lectures before that section use Terraform.
@@ -52,8 +55,8 @@ Four lectures need an AWS account:
 | Lecture | AWS is used for |
 | --- | --- |
 | [05.2 Backend bootstrap](labs/05-remote-state/05.2-backend-bootstrap/) | An S3 remote-state backend and `use_lockfile` locking. The checker validates the rendered config and does not call AWS |
-| [09.2 Assume role](labs/09-secrets-multi-account/09.2-assume-role/) | Assuming an IAM role from a unit |
-| [09.3 Multi-account](labs/09-secrets-multi-account/09.3-multi-account/) | Deploying the same units into more than one account |
+| [09.2 Assume role](labs/09-secrets-multi-account/09.2-assume-role/) | Assuming an IAM role from a unit. The checker renders the config and does not call AWS |
+| [09.3 Multi-account](labs/09-secrets-multi-account/09.3-multi-account/) | Deploying the same unit into two accounts. The checker renders both units and does not call AWS |
 | [10.2 GitHub Actions OIDC](labs/10-cicd/10.2-gha-oidc/) | Letting GitHub Actions assume an AWS role with OIDC |
 
 Keep credentials in your environment or in GitHub. The OIDC lecture is where cloud CI auth is introduced.
