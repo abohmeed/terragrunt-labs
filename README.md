@@ -2,7 +2,7 @@
 
 Hands-on labs for **[Terragrunt for DevOps: Scale Your Terraform Workflows](https://www.udemy.com/course/terragrunt-for-devops-scale-your-terraform-workflows/)** by Ahmed Elfakharany.
 
-This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Each lecture is a stub: a short `README.md`, plus empty `start/` and `solution/` directories. Lab HCL lands in a later change.
+This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 and 03 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
 
 ## Version pins
 
@@ -39,7 +39,7 @@ labs/03-core-hcl/03.2-locals-inputs/
 2. Work inside `start/`.
 3. Open `solution/` when you want the finished files for that lecture.
 
-Later lectures build on earlier ones. To jump ahead, begin from the previous lecture's `solution/` once that solution exists. In this scaffold both directories contain only `.gitkeep`.
+Later lectures build on earlier ones. To jump ahead, begin from the previous lecture's `solution/` once that solution exists. Lectures that are still stubs have only `.gitkeep` in `start/` and `solution/`.
 
 Labs are offline unless the title is marked ☁️. Offline labs use the `local`, `random`, or `null` provider and a local state backend.
 
