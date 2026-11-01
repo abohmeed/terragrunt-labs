@@ -48,6 +48,12 @@ Later lectures build on earlier ones. To jump ahead, begin from the previous lec
 
 Labs are offline unless the title is marked ☁️. Offline labs use the `local`, `random`, or `null` provider and a local state backend.
 
+## Lecture scripts
+
+[`scripts/`](scripts/INDEX.md) holds the English narration drafts used to record the lectures. Instructors and authors start at [`scripts/INDEX.md`](scripts/INDEX.md). Each lecture is its own file (`scripts/01.1-why-terragrunt.md` through `scripts/13.2-next.md`). [`scripts/COURSE_SCRIPTS.md`](scripts/COURSE_SCRIPTS.md) is the same text in lecture order.
+
+The only delivery markers are `[pause Ns]` and `[breath]`. Students work in [`labs/`](labs/), not `scripts/`.
+
 ## Labs that need AWS ☁️
 
 Four lectures need an AWS account:
