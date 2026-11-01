@@ -1,0 +1,25 @@
+name: oidc
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: read
+  contents: read
+
+jobs:
+  plan-auth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      # TODO: assume vars.AWS_PLAN_ROLE_ARN with aws-actions/configure-aws-credentials
+      - name: Show the caller
+        run: aws sts get-caller-identity
+
+  apply-auth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      # TODO: assume vars.AWS_APPLY_ROLE_ARN with aws-actions/configure-aws-credentials
+      - name: Show the caller
+        run: aws sts get-caller-identity

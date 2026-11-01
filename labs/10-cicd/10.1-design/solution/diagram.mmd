@@ -1,0 +1,8 @@
+flowchart LR
+  pr["Pull request"] --> plan["terragrunt plan"]
+  plan --> comment["plan comment"]
+  plan --> report["report.json"]
+  oidc["OIDC"] --> plan
+  oidc --> apply["terragrunt apply"]
+  merge["Merge to main"] --> apply
+  cache["provider cache"] --> apply

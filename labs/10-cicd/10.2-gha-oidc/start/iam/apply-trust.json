@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "TODO",
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "TODO"
+      },
+      "Action": "TODO",
+      "Condition": {
+        "StringEquals": {
+          "token.actions.githubusercontent.com:aud": "TODO",
+          "token.actions.githubusercontent.com:sub": "TODO"
+        }
+      }
+    }
+  ]
+}

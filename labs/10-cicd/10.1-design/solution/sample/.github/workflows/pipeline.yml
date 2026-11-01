@@ -1,0 +1,33 @@
+name: terragrunt
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: terragrunt-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+jobs:
+  plan:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Plan
+        run: terragrunt --non-interactive run --all --report-file report.json -- plan -input=false
+
+  apply:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Apply
+        run: terragrunt --non-interactive run --all --provider-cache -- apply -input=false

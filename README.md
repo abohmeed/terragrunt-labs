@@ -2,7 +2,7 @@
 
 Hands-on labs for **[Terragrunt for DevOps: Scale Your Terraform Workflows](https://www.udemy.com/course/terragrunt-for-devops-scale-your-terraform-workflows/)** by Ahmed Elfakharany.
 
-This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 09 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
+This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 10 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
 
 ## Version pins
 
@@ -144,7 +144,7 @@ SOPS on your machine. IAM and a second account only in the ☁️ labs.
 
 ### 10 · CI/CD
 
-Design the pipeline, then OIDC, plan on pull request, and apply on merge.
+Design the pipeline, then OIDC, plan on pull request, and apply on merge. The lab target is a local backend. Lecture 10.2 is the one that needs AWS, and its checker stays on the workflow files.
 
 - [10.1 Design](labs/10-cicd/10.1-design/)
 - [10.2 GitHub Actions OIDC](labs/10-cicd/10.2-gha-oidc/) ☁️

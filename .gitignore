@@ -58,3 +58,9 @@ mise.local.toml
 # Lecture 08.3 writes these next to the unit on apply.
 attempt.count
 error-signals.json
+
+# Lecture 10 writes these when a plan or apply runs.
+plan.log
+plan-comment.md
+report.json
+.provider-cache/
