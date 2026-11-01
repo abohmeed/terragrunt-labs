@@ -2,7 +2,7 @@
 
 Hands-on labs for **[Terragrunt for DevOps: Scale Your Terraform Workflows](https://www.udemy.com/course/terragrunt-for-devops-scale-your-terraform-workflows/)** by Ahmed Elfakharany.
 
-This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02, 03, and 04 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
+This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02, 03, 04, and 05 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
 
 ## Version pins
 
@@ -49,7 +49,7 @@ Four lectures need an AWS account:
 
 | Lecture | AWS is used for |
 | --- | --- |
-| [05.2 Backend bootstrap](labs/05-remote-state/05.2-backend-bootstrap/) | An S3 remote-state backend and locking |
+| [05.2 Backend bootstrap](labs/05-remote-state/05.2-backend-bootstrap/) | An S3 remote-state backend and `use_lockfile` locking. The checker validates the rendered config and does not call AWS |
 | [09.2 Assume role](labs/09-secrets-multi-account/09.2-assume-role/) | Assuming an IAM role from a unit |
 | [09.3 Multi-account](labs/09-secrets-multi-account/09.3-multi-account/) | Deploying the same units into more than one account |
 | [10.2 GitHub Actions OIDC](labs/10-cicd/10.2-gha-oidc/) | Letting GitHub Actions assume an AWS role with OIDC |
