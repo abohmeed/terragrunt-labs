@@ -2,7 +2,7 @@
 
 Hands-on labs for **[Terragrunt for DevOps: Scale Your Terraform Workflows](https://www.udemy.com/course/terragrunt-for-devops-scale-your-terraform-workflows/)** by Ahmed Elfakharany.
 
-This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 and 03 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
+This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02, 03, and 04 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
 
 ## Version pins
 
