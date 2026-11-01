@@ -9,8 +9,8 @@ terragrunt = "prefix:1.2"
 terraform = "prefix:1.17"
 opentofu = "prefix:1.13"
 
-# Placeholders for the lint-hook (08.2) and SOPS (09.1) lectures.
-# Uncomment and replace "latest" with a pinned release when those labs are written.
-# tflint = "latest"
+# Lecture 08.2 pins tflint. The checker installs this release when the
+# binary is missing. sops and age stay commented until lecture 09.1.
+tflint = "0.65.0"
 # sops = "latest"
 # age = "latest"

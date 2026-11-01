@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Lecture 08.2 Checkov hook.
+# The before_hook calls this script with Checkov's arguments. When a real
+# checkov binary is on PATH, this script execs it. Otherwise it rejects a
+# .tf file that contains allow_all, the stand-in for an overly open policy.
+# Set LAB_CHECKOV_STUB=1 to force the stand-in even if checkov is installed.
+set -euo pipefail
+
+target="."
+prev=""
+for arg in "$@"; do
+  if [[ "$prev" == "-d" || "$prev" == "--directory" ]]; then
+    target="$arg"
+  fi
+  prev="$arg"
+done
+
+if [[ "${LAB_CHECKOV_STUB:-}" != "1" ]] && command -v checkov >/dev/null 2>&1; then
+  self="$(readlink -f "$0")"
+  real="$(command -v checkov)"
+  real_path="$(readlink -f "$real")"
+  if [[ "$real_path" != "$self" ]]; then
+    exec "$real" "$@"
+  fi
+fi
+
+if [[ ! -d "$target" ]]; then
+  echo "checkov stub: ${target} is not a directory" >&2
+  exit 1
+fi
+
+found=0
+while IFS= read -r -d '' file; do
+  if grep -q 'allow_all' "$file"; then
+    echo "checkov stub: found allow_all in ${file}" >&2
+    found=1
+    break
+  fi
+done < <(find "$target" -type f -name '*.tf' -print0)
+
+if [[ "$found" -ne 0 ]]; then
+  exit 1
+fi
+
+echo "checkov stub: no findings"

@@ -2,7 +2,7 @@
 
 Hands-on labs for **[Terragrunt for DevOps: Scale Your Terraform Workflows](https://www.udemy.com/course/terragrunt-for-devops-scale-your-terraform-workflows/)** by Ahmed Elfakharany.
 
-This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 07 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
+This repository is the Terragrunt 1.x rebuild of the course. The folder tree matches the locked curriculum (2026-11-01). Sections 02 through 08 are working labs. Later lectures are still stubs: a short `README.md`, plus empty `start/` and `solution/` directories.
 
 ## Version pins
 
@@ -11,15 +11,17 @@ This repository is the Terragrunt 1.x rebuild of the course. The folder tree mat
 | Terragrunt | `~> 1.2` (1.2.x) | Every lab |
 | Terraform | 1.17.x | Default engine |
 | OpenTofu | 1.13.x | Add-on section, `labs/12-addon-opentofu` |
-| tflint, sops, age | Placeholders | Commented in [`.mise.toml`](.mise.toml) until the lint and secrets labs pin a release |
+| tflint | 0.65.0 | Lecture 08.2. Exact release in [`.mise.toml`](.mise.toml) |
+| sops, age | Placeholders | Commented in [`.mise.toml`](.mise.toml) until the secrets lab pins a release |
 
-[mise](https://mise.jdx.dev/) installs the three pinned tools. A `prefix:` request tracks the newest patch on that minor line.
+[mise](https://mise.jdx.dev/) installs the pinned tools. A `prefix:` request tracks the newest patch on that minor line. tflint is an exact release because lecture 08.2 runs that binary from a hook.
 
 ```bash
 mise install
 terragrunt --version
 terraform --version
 tofu --version
+tflint --version
 ```
 
 OpenTofu is installed with the others so section 12 is ready. Lectures before that section use Terraform.

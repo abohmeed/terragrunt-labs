@@ -54,3 +54,7 @@ mise.local.toml
 
 # OS junk
 .DS_Store
+
+# Lecture 08.3 writes these next to the unit on apply.
+attempt.count
+error-signals.json
